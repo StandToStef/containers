@@ -62,6 +62,6 @@ docker run --name wg-client --rm -it \
 wg-quick up wg0
 apk update
 apk add curl
-ssh -l myuser 10.254.50.1 -p 223B3
+curl 10.0.0.1:3080
 ```
 
