@@ -6,8 +6,8 @@ FROM alpine:${ALPINE_VERSION}
 
 # Install WireGuard tools and clean up
 RUN apk update && \
-    apk add --no-cache wireguard-tools iptables && \
+    apk add --no-cache wireguard-tools haproxy && \
     rm -rf /var/cache/apk/*
 
 # Set default command
-# CMD ["wg"]
+CMD ["haproxy","-f","/etc/haproxy/haproxy.cfg","-db"]

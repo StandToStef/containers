@@ -23,7 +23,7 @@ export ALPINEVER=$(curl -s https://registry.hub.docker.com/v2/repositories/libra
 Building the image:
 
 ```
-docker build --build-arg ALPINE_VERSION=$ALPINEVER -t wireguard:$ALPINEVER .
+docker build --build-arg ALPINE_VERSION=$ALPINEVER -t standtostef/alpine-wireguard:$ALPINEVER .
 ```
 
 Usage
@@ -43,12 +43,11 @@ Now do a test run
 ```
 docker run --name wg --rm \
   -v ./server.conf:/etc/wireguard/wg0.conf \
-  -v ./iptables.server:/etc/iptables/rules.v4 \
+  -v ./haproxy.cfg:/etc/haproxy/haproxy.cfg \
   --cap-add NET_ADMIN \
   --cap-add SYS_MODULE \
   standtostef/alpine-wireguard:latest sh -c "wg-quick up wg0; \
-  	iptables-restore < /etc/iptables/rules.v4; \
-  	tail -f /dev/stdout"
+  	haproxy -f /etc/haproxy/haproxy.cfg -db"
 ```
 
 Connect a client to see if that can connect

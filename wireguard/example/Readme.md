@@ -42,7 +42,7 @@ PersistentKeepalive = 25
 __EOF__
 ```
 
-I've added an example iptables config file that forwards port 3080 to 192.168.1.1:80 in iptables.server
+I've added an example haproxy file that forwards port 3080 to 192.168.1.1:80 in haproxy.cfg
 
 
 Now do a test run
@@ -54,8 +54,7 @@ docker run --name wg --rm \
   --cap-add NET_ADMIN \
   --cap-add SYS_MODULE \
   standtostef/alpine-wireguard:latest sh -c "wg-quick up wg0; \
-  	iptables-restore < /etc/iptables/rules.v4; \
-  	tail -f /dev/stdout"
+  	haproxy -f /etc/haproxy/haproxy.cfg -db"
 ```
 
 Connect a client to see if that can connect
