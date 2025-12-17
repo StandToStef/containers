@@ -19,11 +19,11 @@ OWNALPINEVER=$(
 )
 
 if [[ "${ALPINEVER}" != "${OWNALPINEVER}" ]]; then
-  if docker build --build-arg ALPINE_VERSION=$ALPINEVER -t standtostef/alpine-wireguard:$ALPINEVER .; then
+  if docker build --build-arg ALPINE_VERSION="$ALPINEVER" -t standtostef/alpine-wireguard:"$ALPINEVER" .; then
     echo "Successfully built standtostef/alpine-wireguard:$ALPINEVER"
-    if docker push standtostef/alpine-wireguard:$ALPINEVER; then
+    if docker push standtostef/alpine-wireguard:"$ALPINEVER"; then
       echo "Successfully pushed standtostef/alpine-wireguard:$ALPINEVER to docker"
-      if docker tag standtostef/alpine-wireguard:$ALPINEVER standtostef/alpine-wireguard:latest; then
+      if docker tag standtostef/alpine-wireguard:"$ALPINEVER" standtostef/alpine-wireguard:latest; then
       	echo "Successfully tagged standtostef/alpine-wireguard:$ALPINEVER as latest"
       	if docker push standtostef/alpine-wireguard:latest; then
       	  echo "Successfully pushed standtostef/alpine-wireguard:$ALPINEVER to docker as latest"
