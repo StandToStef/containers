@@ -7,6 +7,10 @@
 # Requirements:
 # - curl
 # - docker
+PATH=${PATH:=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin}
+
+THISDIR=$(dirname "$0")
+pushd "${THISDIR}" >/dev/null 2>&1
 
 ALPINEVER=$(
   curl -s https://registry.hub.docker.com/v2/repositories/library/alpine/tags?page_size=50 | \
@@ -42,3 +46,5 @@ if [[ "${ALPINEVER}" != "${OWNALPINEVER}" ]]; then
 else
   echo "Both versions are ${ALPINEVER}, no action needed"
 fi
+
+popd >/dev/null 2>&1
